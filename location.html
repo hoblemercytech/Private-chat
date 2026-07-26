@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="referrer"
+    content="strict-origin-when-cross-origin"
+  >
+
+  <title>Share Live Location</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body class="share-page">
+
+  <main class="share-container">
+
+    <section class="share-card">
+
+      <div class="location-icon">
+        📍
+      </div>
+
+      <p class="small-heading">
+        LIVE LOCATION SHARING
+      </p>
+
+      <h1>
+        Share Your Live Location
+      </h1>
+
+      <p class="description">
+        Your live location, approximate street address,
+        browser information, device information and network
+        type will be shared with the person who sent you this
+        link while this page remains open.
+      </p>
+
+      <div
+        id="invalidLink"
+        class="message-box error-message hidden"
+      >
+        This location-sharing link is invalid or incomplete.
+      </div>
+
+      <label class="form-group">
+
+        <span class="form-label">
+          Your name or identification
+        </span>
+
+        <input
+          id="visitorName"
+          type="text"
+          maxlength="80"
+          placeholder="Enter your name"
+          autocomplete="name"
+        >
+
+      </label>
+
+      <label class="consent-box">
+
+        <input
+          id="consentCheckbox"
+          type="checkbox"
+        >
+
+        <span>
+          I understand and agree to share my live location
+          and device information for this session.
+        </span>
+
+      </label>
+
+      <div class="button-group">
+
+        <button
+          id="shareLocationBtn"
+          class="primary-button"
+          type="button"
+        >
+          Share Live Location
+        </button>
+
+        <button
+          id="stopSharingBtn"
+          class="danger-button hidden"
+          type="button"
+        >
+          Stop Sharing
+        </button>
+
+      </div>
+
+      <div
+        id="statusMessage"
+        class="message-box"
+      >
+        Waiting for you to start sharing.
+      </div>
+
+      <div class="location-stats">
+
+        <article class="stat-card">
+
+          <span class="stat-label">
+            Accuracy
+          </span>
+
+          <strong id="accuracyValue">
+            —
+          </strong>
+
+        </article>
+
+        <article class="stat-card">
+
+          <span class="stat-label">
+            Last Sent
+          </span>
+
+          <strong id="lastSentValue">
+            —
+          </strong>
+
+        </article>
+
+      </div>
+
+      <div class="privacy-notice">
+
+        <div class="privacy-icon">
+          🔒
+        </div>
+
+        <p>
+          You can stop sharing at any time. Location access
+          requires browser permission and normally works only
+          when this page is opened through HTTPS or localhost.
+        </p>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <script src="config.js"></script>
+
+  <script
+    type="module"
+    src="share.js"
+  ></script>
+
+</body>
+</html>
